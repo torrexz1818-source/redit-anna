@@ -1,13 +1,9 @@
-export function formatDate(dateString) {
-  const date = new Date(dateString);
+export function truncateText(text, maxLength = 140) {
+  if (!text) return "";
 
-  if (Number.isNaN(date.getTime())) {
-    return "Fecha no disponible";
+  if (text.length <= maxLength) {
+    return text;
   }
 
-  return new Intl.DateTimeFormat("es-ES", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  }).format(date);
+  return `${text.slice(0, maxLength).trim()}...`;
 }

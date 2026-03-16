@@ -4,12 +4,12 @@ import SearchBar from "../../components/ui/SearchBar";
 import FilterTabs from "../../components/feed/FilterTabs";
 import PostList from "../../components/feed/PostList";
 import categories from "../../data/categories";
-import mockPosts from "../../data/mockPosts";
+import { usePosts } from "../../context/PostContext";
 
 function Feed() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
-  const [posts, setPosts] = useState(mockPosts);
+  const { posts, likePost } = usePosts();
 
   const filteredPosts = useMemo(() => {
     return posts.filter((post) => {
@@ -28,14 +28,6 @@ function Feed() {
       return matchesCategory && matchesSearch;
     });
   }, [posts, searchTerm, selectedCategory]);
-
-  const handleLike = (postId) => {
-    setPosts((prevPosts) =>
-      prevPosts.map((post) =>
-        post.id === postId ? { ...post, likes: post.likes + 1 } : post
-      )
-    );
-  };
 
   return (
     <MainLayout>
@@ -62,7 +54,7 @@ function Feed() {
           />
         </div>
 
-        <PostList posts={filteredPosts} onLike={handleLike} />
+        <PostList posts={filteredPosts} onLike={likePost} />
       </section>
     </MainLayout>
   );

@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 import LikeButton from "./LikeButton";
 import { formatDate } from "../../utils/formatDate";
-
+import { truncateText } from "../../utils/truncateText";
 const categoryLabels = {
   recommendation: "Recomendación",
   tip: "Tip",
